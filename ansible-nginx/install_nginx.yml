@@ -1,5 +1,6 @@
 - name: Configure webserver with nginx
   hosts: localhost
+  gather_facts: true
   become: True
 
   tasks:
@@ -22,6 +23,16 @@
         src: templates/index.html.j2
         dest: /usr/share/nginx/html/index.html
 
+    - name: Get Nginx service status
+      systemd:
+        name: nginx
+        state: status
+      register: nginx_status
+
+    - name: Display Nginx service status
+      debug:
+        var: nginx_status
+    
     - name: Restart nginx
       service:
         name: nginx
