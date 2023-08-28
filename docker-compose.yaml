@@ -1,0 +1,32 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest  # Use the NGINX image from Docker Hub
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - mynetwork
+
+  wordpress:
+    image: wordpress:latest  # Use the WordPress image from Docker Hub
+    volumes:
+      - wordpress-db:/var/lib/mysql
+      - wordpress-files:/var/www/html
+    networks:
+      - mynetwork
+
+  mariadb:
+    image: mariadb:latest  # Use the MariaDB image from Docker Hub
+    volumes:
+      - wordpress-db:/var/lib/mysql
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  wordpress-db:
+  wordpress-files:
