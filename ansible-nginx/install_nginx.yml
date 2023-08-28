@@ -10,7 +10,7 @@
     - name: Copy nginx config file
       copy:
         src: files/nginx.conf
-        dest: /etc/nginx/sites-available/default
+        dest: /etc/nginx/nginx.conf
 
     - name: Enable configuration
       file:
