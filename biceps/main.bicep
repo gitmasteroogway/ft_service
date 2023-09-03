@@ -3,7 +3,7 @@ param location string = 'westus3'
 
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
-  name: 'toylaunchstorage'
+  name: 'toylaunchstorageformrhoanglongngo'
   location: location
   sku: {
     name: 'Standard_LRS'
