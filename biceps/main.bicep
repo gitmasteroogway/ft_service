@@ -1,5 +1,5 @@
 @description('Specifies the location for resources.')
-param location string = 'westus3'
+param location string = 'westeurope'
 
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
@@ -16,7 +16,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
   name: 'sgsfgjfdfsdfdsf09sdf8'
-  location: 'westus3'
+  location: location
   sku: {
     name: 'F1'
   }
@@ -24,7 +24,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
 
 resource appServiceApp 'Microsoft.Web/sites@2022-03-01' = {
   name: 'sdfsgsfgsdgseds'
-  location: 'westus3'
+  location: location
   properties: {
     serverFarmId: appServicePlan.id
     httpsOnly: true
