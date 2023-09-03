@@ -1,5 +1,5 @@
 @description('Specifies the location for resources.')
-param location string = 'westeurope'
+param location string = 'westus3'
 
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
