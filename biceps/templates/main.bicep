@@ -17,10 +17,7 @@ param solutionName string = 'toyhr${uniqueString(resourceGroup().id)}'
 param appServicePlanInstanceCount int = 1
 
 @description('The name and tier of the App Service plan SKU.')
-param appServicePlanSku object = {
-  name: 'F1'
-  tier: 'Free'
-}
+param appServicePlanSku object
 
 @description('The Azure region into which the resources should be deployed.')
 param location string = 'westus3'
