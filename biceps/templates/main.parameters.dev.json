@@ -17,7 +17,7 @@
     "sqlServerAdministratorLogin": {
       "reference": {
         "keyVault": {
-          "id": "/subscriptions/0bc16f10-29e6-4990-94f2-8702a4e36916/resourceGroups/learn-f49cac0d-fe9b-413c-bf81-077af08a2e91/providers/Microsoft.KeyVault/vaults/bicepskeyvaulthngo "
+          "id": "/subscriptions/0bc16f10-29e6-4990-94f2-8702a4e36916/resourceGroups/learn-f49cac0d-fe9b-413c-bf81-077af08a2e91/providers/Microsoft.KeyVault/vaults/bicepskeyvaulthngo"
         },
         "secretName": "sqlServerAdministratorLogin"
       }
@@ -25,7 +25,7 @@
     "sqlServerAdministratorPassword": {
       "reference": {
         "keyVault": {
-          "id": "/subscriptions/0bc16f10-29e6-4990-94f2-8702a4e36916/resourceGroups/learn-f49cac0d-fe9b-413c-bf81-077af08a2e91/providers/Microsoft.KeyVault/vaults/bicepskeyvaulthngo "
+          "id": "/subscriptions/0bc16f10-29e6-4990-94f2-8702a4e36916/resourceGroups/learn-f49cac0d-fe9b-413c-bf81-077af08a2e91/providers/Microsoft.KeyVault/vaults/bicepskeyvaulthngo"
         },
         "secretName": "sqlServerAdministratorPassword"
       }
