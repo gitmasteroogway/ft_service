@@ -19,7 +19,7 @@ param sqlDatabaseSku object = {
 ])
 param environmentName string = 'Development'
 
-param auditStorageAccountSkuName string = 'Standarnd_LRS'
+param auditStorageAccountSkuName string = 'Standard_LRS'
 
 var auditingEnabled = environmentName == 'Production'
 var auditStorageAccountName = take('bearaudit${location}${uniqueString(resourceGroup().id)}', 24)
