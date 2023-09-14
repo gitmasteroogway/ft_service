@@ -1,40 +1,62 @@
-@description('Specifies the location for resources.')
-param location string = 'westus3'
-param storageAccountName string = 'longplay${uniqueString(resourceGroup().id)}'
-param appServiceAppName string = 'longplay${uniqueString(resourceGroup().id)}'
-
-@allowed([
-  'nonprod'
-  'prod'
-])
-param environmentType string
-var storageAccountSkuName = (environmentType == 'prod') ? 'Standard_GRS' : 'Standard_LRS'
-var appServicePlanSkuName = (environmentType == 'prod') ? 'P2v3' : 'F1'
-
-var appServicePlanName = 'longs-luanch-plan'
 
 
+param locations array = [
+  'westeurope'
+  'eastus2'
+  'eastasia'
+]
 
+@secure()
+param sqlServerAdministratorLogin string
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
-  name: storageAccountName
-  location: location
-  sku: {
-    name: storageAccountSkuName
+@secure()
+param sqlServerAdministratorLoginPassword string
+
+param virtualNetworkAddressPrefix string = '10.10.0.0/16'
+
+param subnets array = [
+  {
+    name: 'frontend'
+    ipAdressrange: '10.10.5.0/24'
   }
-  kind: 'StorageV2'
+  {
+    name: 'backend'
+    ipAdressRange: '10.10.10.0/24'
+  }
+]
+
+var subnetProperties = [for subnet in subnets: {
+  name: subnet.name
   properties: {
-    accessTier: 'Hot'
+    adressPrefix: subnet.ipAdressrange
   }
-}
+}]
 
-module appService 'modules/appService.bicep' = {
-  name: 'appService'
+module databases 'conditions/database.bicep' = [for location in locations: {
+  name: 'datanase-${location}'
   params: {
     location: location
-    appServiceAppName: appServiceAppName
-    environmentType: environmentType
+    sqlServerAdministratorLogin: sqlServerAdministratorLogin
+    sqlServerAdministratorLoginPassword: sqlServerAdministratorLoginPassword
   }
-}
+}]
 
-output appServiceAppHostName string = appService.outputs.appServiceHostName
+resource virtualNetworks 'Microsoft.Network/virtualNetworks@2021-08-01' = [for location in locations: {
+  name: 'teddybear-${location}'
+  location: location
+  properties:{
+    addressSpace:{
+      addressPrefixes:[
+        virtualNetworkAddressPrefix
+      ]
+    }
+    subnets: subnetProperties
+  }
+}]
+
+output serverInfo array = [for i in range(0, length(locations)): {
+  name: databases[i].outputs.serverName
+  location: databases[i].outputs.location
+  fullyQualifiedDomainName: databases[i].outputs.serverFullyQualifiedDomainName
+}]
+
